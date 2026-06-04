@@ -1,728 +1,1295 @@
 <!DOCTYPE html>
+
 <html lang="en">
+
 <head>
+
   <meta charset="UTF-8" />
+
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
   <title>Red-Teaming Workshop · Deep Learning Indaba 2026</title>
+
   <link rel="preconnect" href="https://fonts.googleapis.com" />
+
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+
   <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;1,400;1,500&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet" />
+
   <style>
+
     *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
 
+
+
     :root {
+
       --red:        #890101;
+
       --yellow:     #EEBD61;
+
       --navy:       #012641;
+
       --paper:      #FBF8F3;
+
       --paper-warm: #F4EEE2;
+
       --sand:       #EFE6D2;
+
       --clay:       #C97B5E;
+
       --slate:      #2C3E52;
+
       --ink:        #0a1828;
+
       --ink-muted:  #6b7a8c;
+
       --rule:       rgba(10, 24, 40, 0.14);
+
       --green:      #4A7A3F;
+
       --green-bg:   #E8EFE2;
+
     }
+
+
 
     html { scroll-behavior: smooth; }
 
+
+
     body {
+
       font-family: 'Cormorant Garamond', Georgia, serif;
+
       background: var(--paper);
+
       color: var(--ink);
+
       line-height: 1.5;
+
     }
+
+
 
     /* ── Topbar / nav ── */
+
     .topbar {
+
       position: sticky;
+
       top: 0;
+
       z-index: 100;
+
       background: var(--paper);
+
       border-bottom: 1px solid var(--rule);
+
       padding: 16px 48px;
+
       display: flex;
+
       justify-content: space-between;
+
       align-items: center;
+
     }
+
     .brand {
-      display: flex;
-      align-items: center;
+
+      font-style: italic;
+
+      font-size: 13px;
+
+      color: var(--slate);
+
+      letter-spacing: 0.01em;
+
     }
-    .brand img {
-      height: 32px;
-      width: auto;
-      display: block;
-    }
+
     nav {
+
       display: flex;
+
       gap: 28px;
+
     }
+
     nav a {
+
       font-family: 'JetBrains Mono', monospace;
-      font-size: 10px;
-      letter-spacing: 0.13em;
+
+      font-size: 9px;
+
+      letter-spacing: 0.14em;
+
       text-transform: uppercase;
+
       color: var(--ink-muted);
+
       text-decoration: none;
+
       transition: color 0.2s;
+
     }
+
     nav a:hover { color: var(--ink); }
 
+
+
     /* ── Hero ── */
+
     .hero {
+
       max-width: 900px;
+
       margin: 0 auto;
+
       padding: 80px 48px 64px;
+
     }
+
     .eyebrow {
+
       font-family: 'JetBrains Mono', monospace;
-      font-size: 10.5px;
+
+      font-size: 9px;
+
       letter-spacing: 0.18em;
+
       text-transform: uppercase;
+
       color: var(--ink-muted);
+
       margin-bottom: 28px;
+
     }
+
     .eyebrow::before {
+
       content: '';
+
       display: inline-block;
+
       width: 18px;
+
       height: 1px;
+
       background: var(--ink-muted);
+
       vertical-align: middle;
+
       margin-right: 10px;
+
     }
+
     h1 {
-      font-size: clamp(34px, 5vw, 54px);
+
+      font-size: clamp(32px, 5vw, 52px);
+
       font-weight: 500;
+
       line-height: 1.04;
+
       letter-spacing: -0.02em;
+
       margin-bottom: 28px;
+
       color: var(--ink);
+
       max-width: 700px;
+
     }
+
     h1 em {
+
       font-style: italic;
+
     }
+
     h1 em::after {
+
       content: '';
+
       display: inline-block;
+
       width: 8px;
+
       height: 8px;
+
       background: var(--red);
+
       border-radius: 50%;
+
       margin-left: 5px;
+
       margin-bottom: 6px;
+
       vertical-align: middle;
+
     }
+
     .lede {
+
       font-style: italic;
-      font-size: 21px;
+
+      font-size: 19px;
+
       line-height: 1.5;
+
       color: var(--slate);
+
       max-width: 640px;
+
       margin-bottom: 40px;
+
     }
+
     .meta-grid {
+
       display: grid;
+
       grid-template-columns: repeat(4, auto);
+
       gap: 32px;
+
       padding-top: 24px;
+
       border-top: 1px solid var(--rule);
+
       width: fit-content;
+
     }
+
     .meta-item dt {
+
       font-family: 'JetBrains Mono', monospace;
-      font-size: 9.5px;
+
+      font-size: 8px;
+
       letter-spacing: 0.14em;
+
       text-transform: uppercase;
+
       color: var(--ink-muted);
-      margin-bottom: 5px;
+
+      margin-bottom: 4px;
+
     }
+
     .meta-item dd {
-      font-size: 15px;
+
+      font-size: 13px;
+
       color: var(--ink);
+
       font-weight: 500;
+
     }
+
+
 
     /* ── Section wrapper ── */
+
     section {
+
       max-width: 900px;
+
       margin: 0 auto;
+
       padding: 64px 48px;
+
       border-top: 1px solid var(--rule);
+
     }
+
     .section-label {
+
       font-family: 'JetBrains Mono', monospace;
-      font-size: 10.5px;
+
+      font-size: 9px;
+
       letter-spacing: 0.16em;
+
       text-transform: uppercase;
+
       color: var(--ink-muted);
+
       margin-bottom: 16px;
+
     }
+
     h2 {
-      font-size: 30px;
+
+      font-size: 28px;
+
       font-weight: 500;
+
       letter-spacing: -0.015em;
+
       margin-bottom: 32px;
+
       color: var(--ink);
+
     }
+
+
 
     /* ── Schedule ── */
+
     .schedule-grid {
+
       display: grid;
+
       grid-template-columns: repeat(4, 1fr);
+
       gap: 12px;
+
       margin-bottom: 16px;
+
     }
+
     .sched-card {
+
       background: var(--paper-warm);
+
       padding: 20px 18px;
+
       border-radius: 8px;
+
       position: relative;
+
     }
+
     .sched-card.primary {
+
       background: #F7E4D9;
+
       border: 1px solid var(--clay);
+
     }
+
     .sched-card.dark {
+
       background: var(--navy);
+
       color: var(--paper);
+
     }
+
     .sched-card.dark .sched-part,
+
     .sched-card.dark .sched-time {
-      color: rgba(251, 248, 243, 0.6);
+
+      color: rgba(251, 248, 243, 0.55);
+
     }
+
     .sched-part {
+
       font-family: 'JetBrains Mono', monospace;
-      font-size: 9.5px;
+
+      font-size: 8px;
+
       letter-spacing: 0.14em;
+
       text-transform: uppercase;
+
       color: var(--ink-muted);
+
       margin-bottom: 10px;
+
     }
+
     .sched-title {
-      font-size: 16px;
+
+      font-size: 15px;
+
       font-weight: 500;
+
       line-height: 1.2;
+
       margin-bottom: 6px;
+
     }
+
     .sched-time {
+
       font-family: 'JetBrains Mono', monospace;
-      font-size: 11px;
+
+      font-size: 10px;
+
       color: var(--ink-muted);
+
     }
+
     .sched-arrow {
+
       display: none; /* handled by CSS on non-last */
+
     }
+
     .sched-card:not(:last-child)::after {
+
       content: '›';
+
       position: absolute;
+
       right: -10px;
+
       top: 50%;
+
       transform: translateY(-50%);
+
       font-size: 18px;
+
       color: var(--ink-muted);
+
       z-index: 2;
+
     }
+
+
 
     .outcomes-grid {
+
       display: grid;
+
       grid-template-columns: repeat(4, 1fr);
+
       gap: 12px;
+
       margin-top: 12px;
+
     }
+
     .outcome {
+
       background: var(--green-bg);
-      padding: 15px 16px;
+
+      padding: 14px 16px;
+
       border-radius: 8px;
+
       border-left: 3px solid var(--green);
-      font-size: 15px;
+
+      font-size: 13px;
+
       line-height: 1.4;
+
       color: var(--slate);
+
     }
+
     .outcome.empty {
+
       background: transparent;
+
       border: none;
+
     }
+
+
 
     /* ── Exercise ── */
+
     .exercise-block {
+
       background: var(--paper-warm);
+
       border-left: 4px solid var(--clay);
+
       padding: 28px 32px;
+
       max-width: 680px;
+
       border-radius: 0 8px 8px 0;
+
     }
+
     .exercise-block p {
-      font-size: 16px;
+
+      font-size: 15px;
+
       line-height: 1.6;
+
       color: var(--slate);
+
       margin-bottom: 14px;
+
     }
+
     .exercise-block p:last-of-type { margin-bottom: 0; }
+
     .exercise-block strong { color: var(--ink); }
+
     .tbc-label {
+
       font-family: 'JetBrains Mono', monospace;
-      font-size: 9.5px;
+
+      font-size: 8px;
+
       letter-spacing: 0.14em;
+
       text-transform: uppercase;
+
       color: var(--clay);
+
       margin-top: 18px;
+
       display: block;
+
     }
+
+
 
     /* ── Audience cards ── */
+
     .cards-grid {
+
       display: grid;
+
       grid-template-columns: repeat(2, 1fr);
+
       gap: 14px;
+
     }
+
     .card {
+
       padding: 22px 22px;
+
       border-radius: 8px;
+
     }
+
     .card.sand  { background: var(--sand); }
+
     .card.gold  { background: #FAEBC8; }
+
     .card.clay  { background: #F7E4D9; }
+
     .card.slate { background: #E2E8EE; }
+
     .card-h {
-      font-size: 17px;
+
+      font-size: 16px;
+
       font-weight: 500;
+
       margin-bottom: 6px;
+
       letter-spacing: -0.01em;
+
     }
+
     .card-p {
-      font-size: 15px;
+
+      font-size: 13px;
+
       line-height: 1.45;
+
       color: var(--slate);
+
     }
+
+
 
     /* ── Conduct (dark band) ── */
+
     .conduct-band {
+
       background: var(--navy);
+
       color: var(--paper);
+
       padding: 64px 48px;
+
     }
+
     .conduct-inner {
+
       max-width: 900px;
+
       margin: 0 auto;
+
     }
+
     .conduct-band .section-label {
-      color: rgba(251, 248, 243, 0.6);
+
+      color: rgba(251, 248, 243, 0.55);
+
     }
+
     .conduct-band h2 {
-      font-size: 30px;
+
+      font-size: 28px;
+
       font-weight: 500;
+
       letter-spacing: -0.015em;
+
       color: var(--paper);
+
       margin-bottom: 16px;
+
     }
+
     .conduct-band h2 em {
+
       font-style: italic;
+
       color: var(--yellow);
+
     }
+
     .conduct-band p {
-      font-size: 16px;
+
+      font-size: 15px;
+
       line-height: 1.6;
-      color: rgba(251, 248, 243, 0.82);
+
+      color: rgba(251, 248, 243, 0.8);
+
       max-width: 600px;
+
     }
 
-    /* ── Organisers (people grid) ── */
-    .people-grid {
+
+
+    /* ── Organisers ── */
+
+    .org-grid {
+
       display: grid;
-      grid-template-columns: repeat(4, 1fr);
-      gap: 24px;
-    }
-    .person {
-      text-align: center;
-    }
-    .avatar {
-      width: 104px;
-      height: 104px;
-      border-radius: 50%;
-      margin: 0 auto 16px;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      overflow: hidden;
-      font-family: 'Cormorant Garamond', Georgia, serif;
-      font-size: 32px;
-      font-weight: 500;
-      color: var(--clay);
-      background: var(--sand);
-      border: 1px solid var(--rule);
-    }
-    .avatar.gold  { background: #FAEBC8; color: #B07A2A; }
-    .avatar.clay  { background: #F7E4D9; color: var(--clay); }
-    .avatar.slate { background: #E2E8EE; color: var(--slate); }
-    .avatar img {
-      width: 100%;
-      height: 100%;
-      object-fit: cover;
-    }
-    .person-name {
-      font-size: 18px;
-      font-weight: 500;
-      color: var(--ink);
-      line-height: 1.25;
-      margin-bottom: 5px;
-    }
-    .person-inst {
-      font-family: 'JetBrains Mono', monospace;
-      font-size: 9.5px;
-      letter-spacing: 0.1em;
-      text-transform: uppercase;
-      color: var(--ink-muted);
-      line-height: 1.4;
+
+      grid-template-columns: 1fr 1fr;
+
+      gap: 28px;
+
     }
 
-    /* ── Support / funding (understated) ── */
-    #support { padding-top: 52px; padding-bottom: 52px; }
-    .cosponsor-line {
-      font-size: 14px;
-      line-height: 1.55;
-      color: var(--slate);
-      max-width: 720px;
-      margin-bottom: 18px;
+    .org-block {
+
+      padding-top: 14px;
+
+      border-top: 1px solid var(--rule);
+
     }
-    .cosponsor-line strong { color: var(--ink); font-weight: 500; }
-    .acknowledgement {
-      font-size: 13.5px;
-      line-height: 1.6;
+
+    .org-inst {
+
+      font-family: 'JetBrains Mono', monospace;
+
+      font-size: 8px;
+
+      letter-spacing: 0.14em;
+
+      text-transform: uppercase;
+
       color: var(--ink-muted);
-      max-width: 720px;
+
+      margin-bottom: 12px;
+
     }
-    .disclaimer {
-      font-size: 12.5px;
-      line-height: 1.55;
-      font-style: italic;
-      color: var(--ink-muted);
-      max-width: 720px;
-      margin-top: 10px;
+
+    .org-name {
+
+      font-size: 18px;
+
+      font-weight: 500;
+
+      line-height: 1.5;
+
+      color: var(--ink);
+
     }
+
+
 
     /* ── FAQ ── */
+
     .faq-list { list-style: none; }
+
     .faq-item {
+
       padding: 18px 0;
+
       border-top: 1px solid var(--rule);
+
       display: flex;
+
       justify-content: space-between;
+
       align-items: center;
+
       cursor: pointer;
+
     }
+
     .faq-item:last-child { border-bottom: 1px solid var(--rule); }
+
     .faq-q {
-      font-size: 16px;
+
+      font-size: 15px;
+
       font-weight: 500;
+
       color: var(--ink);
+
     }
+
     .faq-plus {
+
       font-size: 22px;
+
       color: var(--ink-muted);
+
       font-weight: 300;
+
       line-height: 1;
+
       flex-shrink: 0;
+
       margin-left: 16px;
+
       transition: transform 0.25s;
+
     }
+
     .faq-item[aria-expanded="true"] .faq-plus {
+
       transform: rotate(45deg);
+
     }
+
     .faq-answer {
-      font-size: 15.5px;
+
+      font-size: 14px;
+
       line-height: 1.6;
+
       color: var(--slate);
+
       overflow: hidden;
+
       max-height: 0;
+
       transition: max-height 0.3s ease, padding 0.3s ease;
+
       padding: 0;
+
     }
+
     .faq-answer.open {
-      max-height: 280px;
+
+      max-height: 200px;
+
       padding-bottom: 16px;
+
     }
+
+
 
     /* ── Footer ── */
+
     footer {
+
       border-top: 1px solid var(--rule);
+
       padding: 28px 48px;
+
       max-width: 900px;
+
       margin: 0 auto;
+
       display: flex;
+
       justify-content: space-between;
+
       align-items: center;
+
     }
+
     footer p {
+
       font-family: 'JetBrains Mono', monospace;
-      font-size: 10px;
+
+      font-size: 9px;
+
       letter-spacing: 0.1em;
+
       text-transform: uppercase;
+
       color: var(--ink-muted);
+
     }
+
+
 
     /* ── Responsive ── */
+
     @media (max-width: 768px) {
+
       .topbar { padding: 14px 24px; }
+
       nav { gap: 16px; }
+
       .hero, section, footer { padding-left: 24px; padding-right: 24px; }
-      h1 { font-size: 32px; }
+
+      h1 { font-size: 30px; }
+
       .meta-grid { grid-template-columns: repeat(2, auto); gap: 20px; }
+
       .schedule-grid, .outcomes-grid { grid-template-columns: 1fr 1fr; }
+
       .cards-grid { grid-template-columns: 1fr; }
-      .people-grid { grid-template-columns: repeat(2, 1fr); gap: 20px; }
+
+      .org-grid { grid-template-columns: 1fr; }
+
       .conduct-band { padding-left: 24px; padding-right: 24px; }
+
     }
+
+
 
     @media (max-width: 480px) {
+
       nav { display: none; }
+
       .schedule-grid, .outcomes-grid { grid-template-columns: 1fr; }
+
       .meta-grid { grid-template-columns: repeat(2, auto); }
+
       .sched-card:not(:last-child)::after { display: none; }
+
     }
+
   </style>
+
 </head>
+
 <body>
 
+
+
   <!-- Topbar -->
+
   <header class="topbar">
-    <div class="brand"><img src="images/logo-casa.png" alt="CASA — Centre for AI Security and Access"></div>
+
+    <div class="brand">CASA &amp; UCT AI Initiative</div>
+
     <nav aria-label="Page sections">
+
       <a href="#about">About</a>
+
       <a href="#schedule">Schedule</a>
+
       <a href="#exercise">Exercise</a>
+
       <a href="#audience">Audience</a>
+
       <a href="#organisers">Organisers</a>
-      <a href="#support">Support</a>
+
       <a href="#faq">FAQ</a>
+
     </nav>
+
   </header>
 
+
+
   <!-- Hero -->
+
   <div class="hero" id="about">
+
     <p class="eyebrow">Deep Learning Indaba 2026 · Workshop</p>
+
     <h1>Building red-teaming capacity for AI safety evaluation in <em>African contexts</em></h1>
+
     <p class="lede">This workshop introduces participants to red-teaming as a practical, hands-on methodology for probing models for harmful, unsafe, or misaligned behaviour — grounded in African languages and real-world use cases.</p>
+
     <dl class="meta-grid">
+
       <div class="meta-item"><dt>Format</dt><dd>Interactive workshop</dd></div>
+
       <div class="meta-item"><dt>Duration</dt><dd>Three hours</dd></div>
+
       <div class="meta-item"><dt>Capacity</dt><dd>Up to 40</dd></div>
+
       <div class="meta-item"><dt>Bring</dt><dd>A laptop</dd></div>
+
     </dl>
+
   </div>
+
+
 
   <!-- Schedule -->
+
   <section id="schedule">
+
     <p class="section-label">§ Schedule</p>
+
     <h2>Three hours, four parts.</h2>
+
     <div class="schedule-grid">
+
       <div class="sched-card">
+
         <div class="sched-part">Part I</div>
+
         <div class="sched-title">Setting the scene</div>
+
         <div class="sched-time">45 min</div>
+
       </div>
+
       <div class="sched-card">
+
         <div class="sched-part">Part II</div>
+
         <div class="sched-title">The method</div>
+
         <div class="sched-time">45 min</div>
+
       </div>
+
       <div class="sched-card primary">
+
         <div class="sched-part">Part III · core</div>
+
         <div class="sched-title">Hands-on exercise</div>
+
         <div class="sched-time">60 min</div>
+
       </div>
+
       <div class="sched-card dark">
+
         <div class="sched-part">Part IV</div>
+
         <div class="sched-title">Debrief &amp; next steps</div>
+
         <div class="sched-time">30 min</div>
+
       </div>
+
     </div>
+
     <div class="outcomes-grid">
+
       <div class="outcome">Understand why Africa-specific evaluation matters.</div>
+
       <div class="outcome">Can describe the methodology end-to-end.</div>
+
       <div class="outcome">Have run a red-teaming sequence yourself.</div>
+
       <div class="outcome empty"></div>
+
     </div>
+
   </section>
+
+
 
   <!-- Exercise -->
+
   <section id="exercise">
+
     <p class="section-label">§ The exercise</p>
+
     <h2>A guided red-teaming exercise.</h2>
+
     <div class="exercise-block">
+
       <p>In Part III you'll work in small mixed groups (technical and policy researchers together) to apply the methodology to a focused red-teaming exercise. Facilitators circulate to coach the work and push prompt construction.</p>
+
       <p><strong>Bring a laptop.</strong> Materials and facilitation guides are provided on the day.</p>
+
       <span class="tbc-label">Full exercise details — coming soon</span>
+
     </div>
+
   </section>
+
+
 
   <!-- Audience -->
+
   <section id="audience">
+
     <p class="section-label">§ Who it's for</p>
+
     <h2>Built for a mixed audience.</h2>
+
     <div class="cards-grid">
+
       <div class="card sand">
+
         <div class="card-h">AI safety &amp; NLP researchers</div>
+
         <div class="card-p">Working in low-resource or African-language settings.</div>
+
       </div>
+
       <div class="card gold">
+
         <div class="card-h">Policy &amp; social-science researchers</div>
+
         <div class="card-p">Working on AI governance, harm, or accountability.</div>
+
       </div>
+
       <div class="card clay">
+
         <div class="card-h">Civil society &amp; applied researchers</div>
+
         <div class="card-p">Evaluating AI tools being deployed in African contexts.</div>
+
       </div>
+
       <div class="card slate">
+
         <div class="card-h">PhD &amp; postdoctoral researchers</div>
+
         <div class="card-p">Looking for a methodological frame for safety work.</div>
+
       </div>
+
     </div>
+
   </section>
+
+
 
   <!-- Conduct -->
+
   <div class="conduct-band">
+
     <div class="conduct-inner">
+
       <p class="section-label">§ Responsible conduct</p>
+
       <h2>The exercise teaches a method, <em>not how to generate harm</em>.</h2>
+
       <p>Materials prepared in advance. Voluntary, 18+, written consent at the start. No personally identifying information collected; prompts documented without attribution and never reproduced verbatim.</p>
+
     </div>
+
   </div>
 
+
+
   <!-- Organisers -->
+
   <section id="organisers">
+
     <p class="section-label">§ Organisers</p>
+
     <h2>A joint workshop, CASA &amp; UCT AI Initiative.</h2>
 
-    <div class="people-grid">
-      <figure class="person">
-        <div class="avatar"><img src="images/sumaya-nur-adan.jpg" alt="Sumaya Nur Adan"></div>
-        <figcaption>
-          <div class="person-name">Sumaya Nur Adan</div>
-          <div class="person-inst">CASA</div>
-        </figcaption>
-      </figure>
-      <figure class="person">
-        <div class="avatar"><img src="images/joanna-wiaterek.jpg" alt="Joanna Wiaterek"></div>
-        <figcaption>
-          <div class="person-name">Joanna Wiaterek</div>
-          <div class="person-inst">CASA</div>
-        </figcaption>
-      </figure>
-      <figure class="person">
-        <div class="avatar"><img src="images/jonathan-shock.jpg" alt="Prof. Jonathan Shock"></div>
-        <figcaption>
-          <div class="person-name">Prof. Jonathan Shock</div>
-          <div class="person-inst">UCT</div>
-        </figcaption>
-      </figure>
-      <figure class="person">
-        <div class="avatar"><img src="images/annette-hubschle.jpg" alt="Dr. Annette Hübschle"></div>
-        <figcaption>
-          <div class="person-name">Dr. Annette Hübschle</div>
-          <div class="person-inst">UCT</div>
-        </figcaption>
-      </figure>
+    <div class="org-grid">
+
+      <div class="org-block">
+
+        <div class="org-inst">Centre for AI Security and Access</div>
+
+        <div class="org-name">Sumaya Nur Adan</div>
+
+        <div class="org-name">Joanna Wiaterek</div>
+
+      </div>
+
+      <div class="org-block">
+
+        <div class="org-inst">UCT AI Initiative</div>
+
+        <div class="org-name">Prof. Jonathan Shock</div>
+
+        <div class="org-name">Dr. Annette Hübschle</div>
+
+      </div>
+
     </div>
+
   </section>
+
+
 
   <!-- FAQ -->
+
   <section id="faq">
+
     <p class="section-label">§ FAQ</p>
+
     <h2>Common questions.</h2>
+
     <ul class="faq-list">
+
       <li>
+
         <div class="faq-item" aria-expanded="false" role="button" tabindex="0">
+
           <span class="faq-q">Do I need to know how to red-team already?</span>
+
           <span class="faq-plus" aria-hidden="true">+</span>
+
         </div>
+
         <div class="faq-answer">No prior experience is required. The workshop is designed to introduce the methodology from scratch, with facilitators guiding you throughout the hands-on exercise.</div>
+
       </li>
+
       <li>
+
         <div class="faq-item" aria-expanded="false" role="button" tabindex="0">
+
           <span class="faq-q">Will I leave able to red-team independently?</span>
+
           <span class="faq-plus" aria-hidden="true">+</span>
+
         </div>
+
         <div class="faq-answer">You'll leave with a solid working understanding of the method and have completed a full red-teaming sequence. Independent practice will develop further with time, and we'll share resources to support that.</div>
+
       </li>
+
       <li>
+
         <div class="faq-item" aria-expanded="false" role="button" tabindex="0">
+
           <span class="faq-q">I work in policy and don't code — is this for me?</span>
+
           <span class="faq-plus" aria-hidden="true">+</span>
+
         </div>
+
         <div class="faq-answer">Yes. The workshop is explicitly designed for mixed technical and non-technical audiences. Groups are intentionally mixed, and the methodology does not require coding skills.</div>
+
       </li>
+
       <li>
+
         <div class="faq-item" aria-expanded="false" role="button" tabindex="0">
+
           <span class="faq-q">How do I sign up?</span>
+
           <span class="faq-plus" aria-hidden="true">+</span>
+
         </div>
+
         <div class="faq-answer">Registration details will be announced alongside the Deep Learning Indaba 2026 programme. Check back here or follow CASA and UCT AI Initiative for updates.</div>
+
       </li>
+
     </ul>
+
   </section>
 
-  <!-- Support / funding (understated, low-key) -->
-  <section id="support">
-    <p class="section-label">§ Support</p>
-    <p class="cosponsor-line"><strong>Co-sponsors:</strong> Cohere Labs (Catalyst Grant — API credits for model testing) · IDRC / FCDO.</p>
-    <p class="acknowledgement">This work was carried out with support from the Artificial Intelligence for Development (AI4D) Africa programme, with financial support from Canada's International Development Research Centre (IDRC) and the UK's Foreign, Commonwealth &amp; Development Office (FCDO).</p>
-    <p class="disclaimer">The views expressed herein do not necessarily represent those of IDRC or its Board of Governors, or those of FCDO.</p>
-  </section>
+
 
   <!-- Footer -->
+
   <footer>
+
     <p>CASA &amp; UCT AI Initiative · Deep Learning Indaba 2026</p>
+
     <p>Workshop · Three hours</p>
+
   </footer>
 
+
+
   <script>
+
     // FAQ accordion
+
     document.querySelectorAll('.faq-item').forEach(item => {
+
       const answer = item.nextElementSibling;
 
+
+
       const toggle = () => {
+
         const expanded = item.getAttribute('aria-expanded') === 'true';
+
         // Close all others
+
         document.querySelectorAll('.faq-item').forEach(other => {
+
           other.setAttribute('aria-expanded', 'false');
+
           if (other.nextElementSibling) other.nextElementSibling.classList.remove('open');
+
         });
+
         // Toggle current
+
         if (!expanded) {
+
           item.setAttribute('aria-expanded', 'true');
+
           answer.classList.add('open');
+
         }
+
       };
 
+
+
       item.addEventListener('click', toggle);
+
       item.addEventListener('keydown', e => {
+
         if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); toggle(); }
+
       });
+
     });
 
+
+
     // Sticky nav highlight
+
     const sections = document.querySelectorAll('[id]');
+
     const navLinks = document.querySelectorAll('nav a');
 
+
+
     const observer = new IntersectionObserver(entries => {
+
       entries.forEach(entry => {
+
         if (entry.isIntersecting) {
+
           navLinks.forEach(a => {
+
             a.style.color = a.getAttribute('href') === `#${entry.target.id}`
+
               ? 'var(--ink)'
+
               : '';
+
           });
+
         }
+
       });
+
     }, { rootMargin: '-40% 0px -55% 0px' });
 
+
+
     sections.forEach(s => observer.observe(s));
+
   </script>
 
+
+
 </body>
+
 </html>
