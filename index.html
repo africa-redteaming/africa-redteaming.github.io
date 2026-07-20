@@ -511,6 +511,62 @@
     }
     .faq-answer.open { max-height: 300px; padding-bottom: 18px; }
 
+    /* ── Partners section ── */
+.partners-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
+  gap: 20px;
+}
+.partner {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  gap: 12px;
+}
+.partner-logo {
+  width: 100%;
+  height: 84px;
+  background: var(--paper-warm);
+  border: 1px solid var(--rule);
+  border-radius: 8px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 16px 18px;
+  overflow: hidden;
+  position: relative;
+}
+.partner-logo img {
+  max-width: 100%;
+  max-height: 100%;
+  object-fit: contain;
+  display: block;
+}
+.partner-logo .partner-fallback {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 14px;
+  font-weight: 500;
+  color: var(--ink-muted);
+  padding: 0 12px;
+  line-height: 1.3;
+  pointer-events: none;
+}
+.partner-name {
+  font-size: 15px;
+  font-weight: 500;
+  line-height: 1.3;
+  color: var(--ink);
+}
+@media (max-width: 560px) {
+  .partners-grid { grid-template-columns: 1fr 1fr; gap: 14px; }
+  .partner-logo { height: 72px; }
+
     /* ── Funding / Support — text only ── */
     .funding-band {
       max-width: 900px;
@@ -872,6 +928,55 @@
     </ul>
   </section>
 
+  <!-- Partners -->
+  <section id="partners">
+    <p class="section-label">§ Partners</p>
+    <h2>Our partners.</h2>
+    <div class="partners-grid">
+
+      <div class="partner">
+        <div class="partner-logo">
+          <span class="partner-fallback">Qhala</span>
+          <img alt="Qhala" src="https://qhala.com/_nuxt/logo-light.CDD_Df8i.svg"
+               onerror="this.style.display='none'"
+               onload="this.previousElementSibling.style.display='none'" />
+        </div>
+        <div class="partner-name">Qhala</div>
+      </div>
+
+      <div class="partner">
+        <div class="partner-logo">
+          <span class="partner-fallback">Lanfrica Labs</span>
+          <img alt="Lanfrica Labs" src="https://media.licdn.com/dms/image/v2/D4E3DAQFX6yS0ac7g5w/image-scale_191_1128/image-scale_191_1128/0/1730078547546/lanfrica_cover?e=2147483647&v=beta&t=J4ICXByTlPosMvOZnADqqhTNHqmtDMHBYYftY7v2e_w"
+               onerror="this.style.display='none'"
+               onload="this.previousElementSibling.style.display='none'" />
+        </div>
+        <div class="partner-name">Lanfrica Labs</div>
+      </div>
+
+      <div class="partner">
+        <div class="partner-logo">
+          <span class="partner-fallback">Global South Network on for Trustworthy AI</span>
+          <img alt="Global South Network on for Trustworthy AI" src="https://cdn.prod.website-files.com/69baa925727f6d4f899139d2/6a04784d5e3919408b1984db_958fac7f141563beeb5005a47ab7e49f_•Global_network_logo_blk.svg"
+               onerror="this.style.display='none'"
+               onload="this.previousElementSibling.style.display='none'" />
+        </div>
+        <div class="partner-name">Global South Network on for Trustworthy AI</div>
+      </div>
+
+      <div class="partner">
+        <div class="partner-logo">
+          <span class="partner-fallback">Responsible Technology Institute</span>
+          <img alt="Responsible Technology Institute" src="https://www.rti.ox.ac.uk/wp-content/uploads/2021/03/rti_logo_01-1-2048x5891-1.png"
+               onerror="this.style.display='none'"
+               onload="this.previousElementSibling.style.display='none'" />
+        </div>
+        <div class="partner-name">Responsible Technology Institute</div>
+      </div>
+
+    </div>
+  </section>
+  
   <!-- Funding / Support — text only -->
   <div class="funding-band">
     <p class="section-label">§ Funders</p>
