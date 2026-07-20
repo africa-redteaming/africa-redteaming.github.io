@@ -435,48 +435,71 @@
       color: var(--ink);
     }
 
-    /* ── Speakers & materials (coming soon) ── */
-    .coming-soon-block {
-      background: var(--paper-warm);
-      border-left: 4px solid var(--yellow);
-      padding: 28px 30px;
-      max-width: 720px;
-      border-radius: 0 8px 8px 0;
-    }
-    .coming-soon-label {
-      font-family: 'JetBrains Mono', monospace;
-      font-size: 10px;
-      letter-spacing: 0.14em;
-      text-transform: uppercase;
-      color: var(--clay);
-      margin-bottom: 10px;
-    }
-    .coming-soon-block h3 {
-      font-family: 'Cormorant Garamond', serif;
-      font-size: 22px;
-      font-weight: 500;
-      line-height: 1.25;
-      color: var(--ink);
-      margin-bottom: 12px;
-      letter-spacing: -0.005em;
-    }
-    .coming-soon-block p {
-      font-size: 15px;
-      line-height: 1.6;
-      color: var(--slate);
-      margin-bottom: 10px;
-    }
-    .coming-soon-block p:last-child { margin-bottom: 0; }
-    .coming-soon-block a {
-      color: var(--ink);
-      text-decoration: none;
-      border-bottom: 1px solid var(--rule);
-      transition: border-color 0.2s, color 0.2s;
-    }
-    .coming-soon-block a:hover {
-      color: var(--red);
-      border-bottom-color: var(--red);
-    }
+ /* ── Speakers ── */
+.speakers-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 28px;
+}
+.speaker {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  gap: 6px;
+}
+.speaker-photo {
+  width: 120px;
+  height: 120px;
+  border-radius: 50%;
+  background: var(--paper-warm);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: var(--ink-muted);
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 30px;
+  font-weight: 500;
+  overflow: hidden;
+  position: relative;
+  margin-bottom: 10px;
+}
+.speaker-photo img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+}
+.speaker-photo .initials {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  pointer-events: none;
+}
+.speaker-name {
+  font-size: 18px;
+  font-weight: 500;
+  line-height: 1.3;
+  color: var(--ink);
+}
+.speaker-title {
+  font-size: 14px;
+  line-height: 1.4;
+  color: var(--slate);
+}
+.speaker-aff {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 11px;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--ink-muted);
+  margin-top: 2px;
+}
+@media (max-width: 900px) {
+  .speakers-grid { grid-template-columns: 1fr; gap: 24px; max-width: 320px; margin: 0 auto; }
+}
 
     /* ── FAQ ── */
     .faq-list { list-style: none; }
@@ -827,15 +850,47 @@
     </div>
   </div>
 
-  <!-- Speakers & materials (coming soon) -->
+  <!-- Speakers -->
   <section id="speakers">
-    <p class="section-label">§ Speakers &amp; materials</p>
-    <h2>To be announced.</h2>
-    <div class="coming-soon-block">
-      <div class="coming-soon-label">Coming soon</div>
-      <h3>The panel will feature researchers working on AI evaluation, safety, and African language AI.</h3>
-      <p>Full speaker line-up will be confirmed and announced here in the coming weeks. We'll also share pre-reading and workshop materials ahead of the session so participants can arrive prepared.</p>
-      <p>To be notified when speakers and materials are available, email <a href="mailto:info@casa-ai.org">info@casa-ai.org</a>.</p>
+    <p class="section-label">§ Speakers</p>
+    <div class="speakers-grid">
+
+      <div class="speaker">
+        <div class="speaker-photo">
+          <span class="initials">LW</span>
+          <img alt="Dr Laura Weidinger" src="photos/laura-weidinger.jpeg"
+               onerror="this.style.display='none'"
+               onload="this.previousElementSibling.style.display='none'" />
+        </div>
+        <div class="speaker-name">Dr Laura Weidinger</div>
+        <div class="speaker-title">Staff Research Scientist</div>
+        <div class="speaker-aff">Google DeepMind</div>
+      </div>
+
+      <div class="speaker">
+        <div class="speaker-photo">
+          <span class="initials">JHO</span>
+          <img alt="Prof. José Hernández-Orallo" src="https://jorallo.github.io/J.H.Orallo-SMALL.jpg"
+               onerror="this.style.display='none'"
+               onload="this.previousElementSibling.style.display='none'" />
+        </div>
+        <div class="speaker-name">Prof. José Hernández-Orallo</div>
+        <div class="speaker-title">Director of Research & Research Professor</div>
+        <div class="speaker-aff">Leverhulme Centre for the Future of Intelligence, University of Cambridge</div>
+      </div>
+
+      <div class="speaker">
+        <div class="speaker-photo">
+          <span class="initials">JS</span>
+          <img alt="Prof. Jonathan Shock" src="https://neuroscience.uct.ac.za/sites/default/files/styles/square_med/public/contacts/shock2_0.png?h=d00a2ac5&itok=ZmQPL601"
+               onerror="this.style.display='none'"
+               onload="this.previousElementSibling.style.display='none'" />
+        </div>
+        <div class="speaker-name">Prof. Jonathan Shock</div>
+        <div class="speaker-title">Associate Professor; Interim Director</div>
+        <div class="speaker-aff">University of Cape Town; UCT AI Initiative</div>
+      </div>
+
     </div>
   </section>
 
