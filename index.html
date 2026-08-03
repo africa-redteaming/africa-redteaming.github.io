@@ -277,6 +277,90 @@
     }
     .outcome.empty { background: transparent; border: none; }
 
+    .sched-meta {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 12px;
+  letter-spacing: 0.06em;
+  color: var(--ink-muted);
+  margin-top: -8px;
+  margin-bottom: 24px;
+}
+
+.sched-detail {
+  margin-top: 32px;
+  display: flex;
+  flex-direction: column;
+  gap: 28px;
+}
+.sched-block {
+  background: var(--paper-warm);
+  border-radius: 8px;
+  padding: 22px 24px;
+}
+.sched-block-head {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  margin-bottom: 14px;
+}
+.sched-block-part {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 10px;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--clay);
+}
+.sched-block-title {
+  font-size: 19px;
+  font-weight: 500;
+  color: var(--ink);
+}
+.sched-block-goal {
+  font-size: 14px;
+  font-style: italic;
+  color: var(--slate);
+  line-height: 1.5;
+  margin-top: 2px;
+}
+.sched-timeline {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+.sched-timeline li {
+  display: grid;
+  grid-template-columns: 130px 1fr;
+  gap: 16px;
+  padding: 8px 0;
+  border-top: 1px solid var(--rule);
+  align-items: baseline;
+}
+.sched-timeline li:first-child { border-top: none; }
+.sched-t {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 12px;
+  color: var(--ink-muted);
+  white-space: nowrap;
+}
+.sched-d {
+  font-size: 15px;
+  color: var(--ink);
+}
+.sched-credit {
+  font-size: 13px;
+  color: var(--ink-muted);
+  margin-top: 12px;
+  font-style: italic;
+}
+
+@media (max-width: 560px) {
+  .sched-timeline li {
+    grid-template-columns: 1fr;
+    gap: 2px;
+  }
+  .sched-block { padding: 18px 18px; }
+}
+
     /* ── Exercise ── */
     .exercise-block {
       background: var(--paper-warm);
@@ -666,7 +750,7 @@
       .conduct-band { padding-left: 24px; padding-right: 24px; }
       .sched-card:not(:last-child)::after { display: none; }
     }
-
+    
     /* ── Phone ── */
     @media (max-width: 560px) {
       body { font-size: 15px; }
@@ -758,20 +842,22 @@
   <!-- Schedule -->
   <section id="schedule">
     <p class="section-label">§ Schedule</p>
-    <h2>Three hours, four parts.</h2>
+    <h2>Interactive workshop.</h2>
+    <p class="sched-meta">8:30 – 11:30am &nbsp;·&nbsp; Room: see Baobab app</p>
+
     <div class="schedule-grid">
       <div class="sched-card">
         <div class="sched-part">Part I</div>
         <div class="sched-title">Setting the scene</div>
-        <div class="sched-time">45 min</div>
+        <div class="sched-time">50 min</div>
       </div>
       <div class="sched-card">
         <div class="sched-part">Part II</div>
         <div class="sched-title">The method</div>
-        <div class="sched-time">45 min</div>
+        <div class="sched-time">40 min</div>
       </div>
       <div class="sched-card primary">
-        <div class="sched-part">Part III · core</div>
+        <div class="sched-part">Part III</div>
         <div class="sched-title">Hands-on exercise</div>
         <div class="sched-time">60 min</div>
       </div>
@@ -781,11 +867,57 @@
         <div class="sched-time">30 min</div>
       </div>
     </div>
+
     <div class="outcomes-grid">
       <div class="outcome">Understand why Africa-specific evaluation matters.</div>
       <div class="outcome">Can describe the methodology end-to-end.</div>
       <div class="outcome">Have run a red-teaming sequence yourself.</div>
       <div class="outcome empty"></div>
+    </div>
+
+    <!-- Full schedule breakdown -->
+    <div class="sched-detail">
+
+      <div class="sched-block">
+        <div class="sched-block-head">
+          <span class="sched-block-part">Part I</span>
+          <span class="sched-block-title">Setting the scene</span>
+          <span class="sched-block-goal">Ground the room in why AI evaluation, and red-teaming within it, matters for African contexts.</span>
+        </div>
+        <ul class="sched-timeline">
+          <li><span class="sched-t">8:30 – 8:40am</span><span class="sched-d">Workshop welcome and agenda</span></li>
+          <li><span class="sched-t">8:40 – 9:05am</span><span class="sched-d">Panel discussion</span></li>
+          <li><span class="sched-t">9:05 – 9:20am</span><span class="sched-d">Audience Q&amp;A</span></li>
+        </ul>
+        <p class="sched-credit">Moderator: Joanna Wiaterek</p>
+      </div>
+
+      <div class="sched-block">
+        <div class="sched-block-head">
+          <span class="sched-block-part">Parts II &amp; III</span>
+          <span class="sched-block-title">The method, then the exercise</span>
+          <span class="sched-block-goal">Teach the red-teaming protocol end-to-end, then apply it hands-on in small mixed groups.</span>
+        </div>
+        <ul class="sched-timeline">
+          <li><span class="sched-t">9:20 – 10:00am</span><span class="sched-d">Protocol walkthrough</span></li>
+          <li><span class="sched-t">10:00 – 11:00am</span><span class="sched-d">Red-teaming exercise</span></li>
+        </ul>
+        <p class="sched-credit">Session lead: Sumaya Nur Adan</p>
+        <p class="sched-credit">With thanks to our facilitators for helping run the group exercise: Tamilore Oni, Chris Emezue, Maxwell Igweogu, and Sarah Luger.</p>
+      </div>
+
+      <div class="sched-block">
+        <div class="sched-block-head">
+          <span class="sched-block-part">Part IV</span>
+          <span class="sched-block-title">Debrief &amp; next steps</span>
+          <span class="sched-block-goal">Surface cross-group findings and share with participants further opportunities.</span>
+        </div>
+        <ul class="sched-timeline">
+          <li><span class="sched-t">11:00 – 11:20am</span><span class="sched-d">Sharing of outputs</span></li>
+          <li><span class="sched-t">11:20 – 11:30am</span><span class="sched-d">Summing up and next steps</span></li>
+        </ul>
+      </div>
+
     </div>
   </section>
 
