@@ -386,6 +386,51 @@
       margin-top: 18px;
       display: block;
     }
+  .resource-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 14px;
+  margin-top: 20px;
+}
+.resource-card {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  background: var(--paper-warm);
+  border-radius: 8px;
+  padding: 18px 20px;
+  text-decoration: none;
+  transition: background 0.2s, transform 0.15s;
+}
+.resource-card:hover {
+  background: #F7E4D9;
+  transform: translateY(-2px);
+}
+.resource-label {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 10px;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--clay);
+}
+.resource-title {
+  font-size: 17px;
+  font-weight: 500;
+  color: var(--ink);
+}
+.resource-action {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 12px;
+  color: var(--ink-muted);
+  margin-top: 4px;
+}
+.resource-card:hover .resource-action {
+  color: var(--red);
+}
+
+@media (max-width: 900px) {
+  .resource-grid { grid-template-columns: 1fr; }
+}
 
     /* ── Audience cards ── */
     .cards-grid {
@@ -903,7 +948,7 @@
           <li><span class="sched-t">10:00 – 11:00am</span><span class="sched-d">Red-teaming exercise</span></li>
         </ul>
         <p class="sched-credit">Session lead: Sumaya Nur Adan</p>
-        <p class="sched-credit">With thanks to our facilitators for helping run the group exercise: Tamilore Oni, Chris Emezue, Maxwell Igweogu, and Sarah Luger.</p>
+        <p class="sched-credit">With thanks to our facilitators for helping run the group exercise: Tamilore Oni, Chris Emezue, Maxwell Igweogu, Jabez Magomere and Sarah Luger.</p>
       </div>
 
       <div class="sched-block">
@@ -965,14 +1010,31 @@
     </div>
   </section>
   
-  <!-- Exercise -->
+   <!-- Exercise -->
   <section id="exercise">
     <p class="section-label">§ The exercise</p>
     <h2>A guided red-teaming exercise.</h2>
     <div class="exercise-block">
       <p>In Part III you'll work in small mixed groups (technical and policy researchers together) to apply the methodology to a focused red-teaming exercise. Facilitators circulate to coach the work and push prompt construction.</p>
       <p><strong>Bring a laptop.</strong> Materials and facilitation guides are provided on the day.</p>
-      <span class="tbc-label">Full exercise details — coming soon</span>
+    </div>
+
+    <div class="resource-grid">
+      <a class="resource-card" href="https://drive.google.com/file/d/1AWh20ByyeJNlFdoe_Rf60L5vanHah0JR/view?usp=sharing" target="_blank" rel="noopener">
+        <span class="resource-label">Booklet</span>
+        <span class="resource-title">Workshop overview</span>
+        <span class="resource-action">Download PDF ↗</span>
+      </a>
+      <a class="resource-card" href="https://drive.google.com/file/d/1uswoF2xqd7gSP5mYSPWpSod5o8e7TW6o/view?usp=sharing" target="_blank" rel="noopener">
+        <span class="resource-label">Worksheet</span>
+        <span class="resource-title">Exercise step-by-step</span>
+        <span class="resource-action">Download PDF ↗</span>
+      </a>
+      <a class="resource-card" href="https://drive.google.com/file/d/1TOpcjUlzMDytxbXybdT4vaS4RteMjOB1/view?usp=sharing" target="_blank" rel="noopener">
+        <span class="resource-label">Interface</span>
+        <span class="resource-title">Red-teaming tool demo</span>
+        <span class="resource-action">View demo ↗</span>
+      </a>
     </div>
   </section>
 
